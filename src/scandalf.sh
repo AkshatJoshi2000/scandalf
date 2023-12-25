@@ -86,9 +86,10 @@ forced_browsing() {
             yellow
             echo "  ==> Running feroxbuster on $target_url"
             reset
-            feroxbuster -u "$target_url" -s 200 -w $wordlist > "$dir/target_forced_browsing" 2>&1
-            cat "$dir/target_forced_browsing" | sort -u | uniq >> "$dir/${url}_stat_200_forced_browsing"
-            rm $dir/target_forced_browsing
+            feroxbuster -u "$target_url" -s 200 -w $wordlist -o "$dir/target_forced_browsing.txt" > /dev/null 2>&1
+
+            cat "$dir/target_forced_browsing.txt" | sort -u | uniq | awk '{print $NF}' >> "$dir/${url}_stat_200_forced_browsing.txt"
+            rm $dir/target_forced_browsing.txt
         done < "$resolved_file"
     else
         red
@@ -101,18 +102,19 @@ forced_browsing() {
 # Subdomain Enumeration
 sub_domain_enumeration() {
     yellow
+    
     echo "  ==> Running subfinder on $url"
-    subfinder -d $url > "$dir/${url}_subdomains" 2>&1
+    subfinder -d $url -o "$dir/${url}_subdomains" > /dev/null 2>&1
 
     echo "  ==> Running amass enum on $url"
-    amass enum -timeout 1 -d $url >> "$dir/${url}_subdomains" 2>&1
+    amass enum -timeout 60 -d $url >> "$dir/${url}_subdomains" 2>&1
 
-    echo " ==> Running amass active on $url"
-    amass -active -brute -d $url >> "$dir/${url}_subdomains" 2>&1 
     reset
 
     sort -u "$dir/${url}_subdomains" > "$dir/${url}_sorted_sub_domain" 
     httpx -follow-redirects -status-code -vhost -threads 300 -silent -l "$dir/${url}_sorted_sub_domain" | sort -u | grep "[200]" | cut -d [ -f1 | uniq > "$dir/${url}_resolved"
+
+
 }
 
 main() {
