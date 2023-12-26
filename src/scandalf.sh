@@ -43,6 +43,7 @@ print_scandalf() {
 # Initialize variables
 url=""
 wordlist="$HOME/Desktop/recon/SecLists/Discovery/Web-Content/raft-medium-directories.txt"
+mutation_word_list="$HOME/Desktop/scandalf/resources/mutation_file.txt"
 result_dir="$HOME/Desktop/scandalf/result"
 
 # Check for necessary tools
@@ -102,19 +103,22 @@ forced_browsing() {
 # Subdomain Enumeration
 sub_domain_enumeration() {
     yellow
-    
+
     echo "  ==> Running subfinder on $url"
     subfinder -d $url -o "$dir/${url}_subdomains" > /dev/null 2>&1
 
     echo "  ==> Running amass enum on $url"
-    amass enum -timeout 60 -d $url >> "$dir/${url}_subdomains" 2>&1
+    amass enum -timeout 1 -d $url >> "$dir/${url}_subdomains" 2>&1
+
+    echo "  ==> Running altdns on $url"
+    altdns -i $dir/${url}_subdomains -o data_output -w $mutation_word_list -r > "$dir/results_output.txt" > /dev/null 2>&1
+    cat "$dir/results_output.txt" >> "$dir/${url}_subdomains"
+    rm $dir/results_output.txt
 
     reset
 
     sort -u "$dir/${url}_subdomains" > "$dir/${url}_sorted_sub_domain" 
     httpx -follow-redirects -status-code -vhost -threads 300 -silent -l "$dir/${url}_sorted_sub_domain" | sort -u | grep "[200]" | cut -d [ -f1 | uniq > "$dir/${url}_resolved"
-
-
 }
 
 main() {
