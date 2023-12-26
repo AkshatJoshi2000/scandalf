@@ -1,7 +1,7 @@
 
 # ScanDalf
 
-<img width="452" alt="Screenshot 2023-12-26 at 2 02 48 AM" src="https://github.com/AkshatJoshi2000/scandalf/assets/39386084/8fe2ab82-57bd-43b7-a7b0-91ab1abcc095">
+<img width="452" alt="Screenshot 2023-12-26 at 2 02 48 AM" src="https://github.com/AkshatJoshi2000/scandalf/assets/39386084/8fe2ab82-57bd-43b7-a7b0-91ab1abcc095" align=center>
 
 ScanDalf is a sophisticated Bash script designed for cybersecurity professionals focusing on web reconnaissance and penetration testing. This tool streamlines the process of subdomain enumeration and forced browsing, leveraging popular cybersecurity tools like feroxbuster, subfinder, amass, and httpx. It features an intuitive command-line interface with colorful text outputs, enhancing user experience and readability.
 
