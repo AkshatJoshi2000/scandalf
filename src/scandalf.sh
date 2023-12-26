@@ -122,7 +122,7 @@ sub_domain_enumeration() {
 }
 
 nuclei_scan(){
-    cat "$dir/${url}_subdomains"| httpx -silent |sort -u| nuclei -c 200 -silent -o "$dir/${url}_nuclei"
+    cat "$dir/${url}_subdomains"| httpx -silent |sort -u| nuclei -c 200 -silent -o "$dir/${url}_nuclei" > /dev/null 2>&1
 }
 
 main() {
