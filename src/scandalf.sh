@@ -121,6 +121,10 @@ sub_domain_enumeration() {
     httpx -follow-redirects -status-code -vhost -threads 300 -silent -l "$dir/${url}_sorted_sub_domain" | sort -u | grep "[200]" | cut -d [ -f1 | uniq > "$dir/${url}_resolved"
 }
 
+nuclei_scan(){
+    cat "$dir/${url}_subdomains"| httpx -silent |sort -u| nuclei -c 200 -silent -o "$dir/${url}_nuclei"
+}
+
 main() {
     print_scandalf
     green
@@ -131,6 +135,10 @@ main() {
     echo "Performing Forced Browsing..."
     reset
     forced_browsing
+    green
+    echo "Performing nuclei scan"
+    reset
+    nuclei_scan
     green
     echo "Scan completed successfully."
     reset

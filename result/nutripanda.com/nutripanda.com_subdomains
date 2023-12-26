@@ -1,0 +1,16 @@
+www.nutripanda.com
+nutripanda.com
+nutripanda.com
+www.nutripanda.com
+
+OWASP Amass v3.21.2                               https://github.com/OWASP/Amass
+--------------------------------------------------------------------------------
+2 names discovered - cert: 2
+--------------------------------------------------------------------------------
+ASN: 58182 - WIX_COM
+	185.230.60.0/22   	3    Subdomain Name(s)
+ASN: 396982 - GOOGLE-CLOUD-PLATFORM, US
+	34.148.0.0/14     	1    Subdomain Name(s)
+
+The enumeration has finished
+Discoveries are being migrated into the local database

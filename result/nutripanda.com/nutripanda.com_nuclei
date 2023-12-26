@@ -1,0 +1,21 @@
+[caa-fingerprint] [dns] [info] www.nutripanda.com
+[caa-fingerprint] [dns] [info] nutripanda.com
+[dns-saas-service-detection:wix] [dns] [info] www.nutripanda.com [cdn1.wixdns.net]
+[txt-fingerprint] [dns] [info] nutripanda.com ["v=spf1 include:_spf-eu.ionos.com ~all"]
+[nameserver-fingerprint] [dns] [info] nutripanda.com [ns8.wixdns.net.,ns9.wixdns.net.]
+[mx-fingerprint] [dns] [info] nutripanda.com [20 mx01.ionos.co.uk.,10 mx00.ionos.co.uk.]
+[http-missing-security-headers:cross-origin-resource-policy] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:strict-transport-security] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:x-content-type-options] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:clear-site-data] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:x-permitted-cross-domain-policies] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:referrer-policy] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:cross-origin-embedder-policy] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:cross-origin-opener-policy] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:content-security-policy] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:permissions-policy] [http] [info] https://www.nutripanda.com
+[http-missing-security-headers:x-frame-options] [http] [info] https://www.nutripanda.com
+[ssl-issuer] [ssl] [info] www.nutripanda.com:443 [Let's Encrypt]
+[ssl-dns-names] [ssl] [info] www.nutripanda.com:443 [nutripanda.com,www.nutripanda.com]
+[tls-version] [ssl] [info] www.nutripanda.com:443 [tls12]
+[tls-version] [ssl] [info] www.nutripanda.com:443 [tls13]
