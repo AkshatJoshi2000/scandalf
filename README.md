@@ -23,20 +23,17 @@ List of tools that are used to perform and cover different aspects of web reconn
 | `amass`| `Attack Surface Mapper`| performs network mapping of attack surfaces and external asset discovery using open source information gathering and active reconnaissance techniques. |
 | `Feroxbuster` | `Forced Browsing` | feroxbuster is a tool designed to perform Forced Browsing. Forced browsing is an attack where the aim is to enumerate and access resources that are not referenced by the webapps, but are still accessible by an attacker.|
 |`altdns`|`Subdomain discovery`|Altdns is a DNS recon tool that allows for the discovery of subdomains that conform to patterns.|
-
-
+|`waybackurls`|`Discovery`|Fetches known URLs from the Wayback Machine for *.domain and output them on stdout.|
+|`gau`|`Discovery`|getallurls (gau) fetches known URLs from AlienVault's Open Threat Exchange, the Wayback Machine, Common Crawl, and URLScan for any given domain.|
+|`gf`|`grep on steroids`|A wrapper around grep to avoid typing common patterns.|
 
 
 ## Usage
 
+ - Make sure to install `go`, `python`, and `Rust`
+ - Run the `requirements.sh` file. Make sure to edit the file based on your OS, and the type of installation you want. 
 ` ./scandalf -u <URL> [-w] <wordlist>`
-
-
-
-
-## Documentation
-
-[Documentation](https://linktodocumentation)
+ - Providing wordlist id optional, if not provided it uses the `raft-medium` by seclists. 
 
 
 ## User details
