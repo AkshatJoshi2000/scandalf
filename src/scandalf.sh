@@ -178,7 +178,6 @@ vuln_extractor(){
     reset
 }
 
-
 main() {
     print_scandalf
     green
