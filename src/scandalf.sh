@@ -27,7 +27,7 @@ reset() {
 
 # Function to print "ScanDalf" in ASCII art with cyan color
 print_scandalf() {
-    cyan
+    red
     echo '
   _________                    ________         .__   _____ 
  /   _____/ ____ _____    ____ \______ \ _____  |  |_/ ____\
@@ -37,6 +37,8 @@ print_scandalf() {
         \/     \/     \/     \/        \/     \/            
 
     '
+    echo 'Your personal recon Wizard!'
+    echo ' '
     reset
 }
 
@@ -49,7 +51,7 @@ result_dir="$HOME/Desktop/scandalf/result"
 # Check for necessary tools
 for tool in feroxbuster subfinder amass httpx; do
     if ! command -v $tool &> /dev/null; then
-        red
+        cyan
         echo "Error: $tool is not installed. Exiting."
         reset
         exit 1
@@ -87,18 +89,20 @@ forced_browsing() {
             yellow
             echo "  ==> Running feroxbuster on $target_url"
             reset
-            feroxbuster -u "$target_url" -s 200 -w $wordlist -o "$dir/target_forced_browsing.txt" > /dev/null 2>&1
+            feroxbuster -u "$target_url" -s 200 -w $wordlist --silent --threads 300 -o "$dir/target_forced_browsing.txt" > /dev/null 2>&1
 
             cat "$dir/target_forced_browsing.txt" | sort -u | uniq | awk '{print $NF}' >> "$dir/${url}_stat_200_forced_browsing.txt"
             rm $dir/target_forced_browsing.txt
         done < "$resolved_file"
+        cyan
+        echo "      ==> 200_forced_browsing file created"
+        reset
     else
         red
         echo "Resolved file not found: $resolved_file"
         reset
     fi
 }
-
 
 # Subdomain Enumeration
 sub_domain_enumeration() {
@@ -123,7 +127,57 @@ sub_domain_enumeration() {
 
 nuclei_scan(){
     cat "$dir/${url}_subdomains"| httpx -silent |sort -u| nuclei -c 200 -silent -o "$dir/${url}_nuclei" > /dev/null 2>&1
+    cyan
+    echo '      ==> Nuclei file created'
+    reset
 }
+
+vuln_extractor(){
+    waybackurls ${url} > $dir/${url}_urls > /dev/null 2>&1; gau $url --threads 300  >> $dir/${url}_urls
+    cat "$dir/${url}_stat_200_forced_browsing.txt" >> $dir/${url}_urls
+    cat $dir/${url}_urls | sort -u > $dir/${url}_final_urls
+
+    cyan
+    echo "      ==> Wayback & gau were successfully executed"
+    reset
+    gf xss $dir/${url}_final_urls | cut -d : -f3-| sort -u > /dev/null 2>&1
+    cyan
+    echo "      ==> xss file generated"
+    reset
+    gf ssti $dir/${url}_final_urls | sort -u > $dir/${url}_ssti > /dev/null 2>&1
+    cyan
+    echo "      ==> ssti file generated"
+    reset
+    gf ssrf $dir/${url}_final_urls | sort -u > $dir/${url}_ssrf > /dev/null 2>&1
+    cyan
+    echo "      ==> ssrf file generated"
+    reset
+    gf sqli $dir/${url}_final_urls | sort -u > $dir/${url}_sqli > /dev/null 2>&1
+    cyan
+    echo "      ==> sqli file generated"
+    reset
+    gf redirect $dir/${url}_final_urls | cut -d : -f3- | sort > /dev/null 2>&1
+    cyan
+    echo "      ==> redirect file generated"
+    reset
+    gf rce $dir/${url}_final_urls | sort -u > $dir/${url}_rce > /dev/null 2>&1
+    cyan
+    echo "      ==> rce file generated"
+    reset
+    gf potential $dir/${url}_final_urls | cut -d : -f3- | sort > /dev/null 2>&1
+    cyan
+    echo "      ==> potential file generated"
+    reset
+    gf lfi $dir/${url}_final_urls | sort -u > $dir/${url}_lfi > /dev/null 2>&1
+    cyan
+    echo "      ==> lfi file generated"
+    reset
+    gf idor $dir/${url}_final_urls | sort -u > $dir/${url}_idor > /dev/null 2>&1
+    cyan
+    echo "      ==> idor file generated"
+    reset
+}
+
 
 main() {
     print_scandalf
@@ -135,6 +189,10 @@ main() {
     echo "Performing Forced Browsing..."
     reset
     forced_browsing
+    green 
+    echo "Performing vuln extraction"
+    reset
+    vuln_extractor
     green
     echo "Performing nuclei scan"
     reset
