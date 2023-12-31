@@ -58,10 +58,10 @@ print_scandalf() {
 
 # Initialize variables
 url=""
-wordlist="$HOME/Desktop/recon/SecLists/Discovery/Web-Content/raft-medium-directories.txt"
-mutation_word_list="$HOME/Desktop/scandalf/resources/mutation_file.txt"
-fingerprint = "$HOME/Desktop/scandalf/resources/fingerprint.txt"
-result_dir="$HOME/Desktop/scandalf/result"
+wordlist= "<DEFAULT LIST>"
+mutation_word_list="<MUTATION WORDLIST>"
+fingerprint = "<DEFAULT FINGERPRINT FILE>"
+result_dir="<PATH FOR RESULT DIRECTORY>"
 
 # Check for necessary tools
 for tool in feroxbuster subfinder amass httpx; do
