@@ -31,6 +31,7 @@ pip3 install py-altdns==1.0.2
 
 # nuclei go installation
 go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+
 # nuclei macOS installation
 # brew install nuclei
 
@@ -43,5 +44,11 @@ go install github.com/tomnomnom/gf@latest
 # go installation for gau
 $ go install github.com/lc/gau/v2/cmd/gau@latest
 # gau automatically looks for a configuration file at $HOME/.gau.toml or%USERPROFILE%\.gau.toml. I have added this file in the resources. 
+
+# go installation for subjack
+go install github.com/haccer/subjack@latest
+
+# go installation for subover
+go install github.com/Ice3man543/SubOver@latest
 
 
